@@ -1,0 +1,22 @@
+Package: nmathresh
+Type: Package
+Title: Thresholds and Invariant Intervals for Network Meta-Analysis
+Version: 0.1.1
+Authors@R: person("David", "Phillippo", email="david.phillippo@bristol.ac.uk", role=c("aut","cre"))
+Description: Calculation and presentation of decision-invariant bias adjustment
+    thresholds and intervals for Network Meta-Analysis, as described by 
+    Phillippo et al. (2017) <doi:10.1111/rssa.12341>. These describe the 
+    smallest changes to the data that would result in a change of decision.
+License: GPL-3
+LazyData: TRUE
+Imports: nnls, grid, gridExtra, gtable, Matrix, ggplot2
+Depends: R (>= 3.1.0)
+RoxygenNote: 6.0.1
+Suggests: knitr, rmarkdown, coda
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2018-01-26 09:41:21 UTC; dp14189
+Author: David Phillippo [aut, cre]
+Maintainer: David Phillippo <david.phillippo@bristol.ac.uk>
+Repository: CRAN
+Date/Publication: 2018-01-26 11:24:44 UTC
