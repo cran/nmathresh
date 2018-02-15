@@ -62,3 +62,6 @@ print.thresh <- function(x, n = 6L, ...){
   else if (n < 0 & -n < N) cat("... ", -n, " further rows omitted ...", sep = "")
 
 }
+
+#' @importMethodsFrom Matrix %*% diag solve crossprod tcrossprod
+NULL

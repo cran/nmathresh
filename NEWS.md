@@ -1,3 +1,9 @@
+# nmathresh 0.1.2
+
+* Fix: Additional columns specified with `add.columns` in `thresh_forest` are now sorted along with the rest of the table when `orderby` is given.
+* Fix: Bugs in `thresh_forest` with infinite or undefined data estimates and variances.
+* Fix: Covariance matrices created using `Matrix` package are acceptable always (not just in the block diagonal case).
+
 # nmathresh 0.1.1
 
 * Fix DOI brackets in DESCRIPTION for CRAN.
