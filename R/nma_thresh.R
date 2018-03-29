@@ -136,7 +136,7 @@
 nma_thresh <- function(mean.dk, lhood, post,
                        nmatype="fixed",
                        X=NULL,
-                       mu.design=NULL, delta.design=diag(nrow=dim(lhood)),
+                       mu.design=NULL, delta.design=NULL,
                        opt.max=TRUE, trt.rank=1, trt.code=NULL, trt.sub=NULL,
                        mcid=0, mcid.type='decision') {
 
@@ -149,6 +149,13 @@ nma_thresh <- function(mean.dk, lhood, post,
              stop('nmatype should be one of "fixed" or "random"')
            })
 
+  # Warn if mu.design or delta.design given in FE case, or X given in RE case
+  if (isFE && (!is.null(mu.design) || !is.null(delta.design))) {
+    warning('nmatype = "fixed", so arguments mu.design and delta.design are ignored.')
+  }
+  if (!isFE && !is.null(X)) {
+    warning('nmatype = "random", so argument X is ignored.')
+  }
 
   # Get number of data points N
   if (dim(lhood)[1] == dim(lhood)[2]) {
@@ -181,9 +188,12 @@ nma_thresh <- function(mean.dk, lhood, post,
   # Get number of delta parameters
   if (isFE) {
     n.delta <- 0
+  } else if (is.null(delta.design)) {
+    delta.design <- diag(nrow = N)
   } else if (nrow(delta.design) != N) {
     stop("Number of rows in delta.design does not equal N.")
-  } else {
+  }
+  if (!isFE) {
     n.delta <- ncol(delta.design)
     message("Number of delta parameters is n.delta = ",n.delta,".")
   }

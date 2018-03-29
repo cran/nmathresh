@@ -1,3 +1,8 @@
+# nmathresh 0.1.3
+
+* Fix: Previous release introduced a bug where a single column passed to `add.columns` resulted in an error.
+* Feature: Warn when arguments passed to `nma_thresh` are mismatched (`nmatype` options with `X`, `mu.design`, and `delta.design`), indicating possible user error.
+
 # nmathresh 0.1.2
 
 * Fix: Additional columns specified with `add.columns` in `thresh_forest` are now sorted along with the rest of the table when `orderby` is given.

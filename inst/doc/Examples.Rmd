@@ -101,7 +101,7 @@ for (i in 1:N){
 }
 ```
 
-We are now ready to perform a threshold analysis at the study level. This is made easy using the `nma_thresh` function, which takes the posterior means of the treatment effect parameters, the likelihood and posterior covariance matrices, and the design matrix. We specify `nmatype = "fixed"` to derive thresholds for the FE model, and `opt.max = FALSE` since the optimal treatment is the one which minimises the log odds.
+We are now ready to perform a threshold analysis at the study level. This is made easy using the `nma_thresh` function, which takes the posterior means and covariance matrix of the treatment effect parameters ($d_k$), the likelihood covariance matrix, and the design matrix. We specify `nmatype = "fixed"` to derive thresholds for the FE model, and `opt.max = FALSE` since the optimal treatment is the one which minimises the log odds.
 ```{r}
 # Now we can perform thresholding at the study level
 thresh <- nma_thresh(mean.dk = Thrombo.post.summary$statistics[1:(K-1), "Mean"], 

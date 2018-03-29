@@ -165,7 +165,7 @@ thresh_forest <- function(thresh,
 
   # Set up additional columns
   if (!is.null(add.columns)) {
-    add.columns <- as.data.frame(add.columns)
+    add.columns <- as.data.frame(add.columns, stringsAsFactors = FALSE)
 
     if (is.null(add.columns.title)) {
       add.columns.title <- colnames(add.columns)
@@ -354,7 +354,7 @@ thresh_forest <- function(thresh,
   # Add in additional columns (if any)
   if (!is.null(add.columns)) {
     # Reorder if necessary
-    add.columns <- add.columns[row_order, ]
+    add.columns <- add.columns[row_order, , drop = FALSE]
 
     # Format numeric columns
     add.columns[] <- lapply(add.columns, function(x){if (is.numeric(x)) printsig(x) else x})
