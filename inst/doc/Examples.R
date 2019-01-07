@@ -1,4 +1,4 @@
-## ---- echo=FALSE, out.width='60%', fig.cap="Thrombolytic treatment network, from Phillippo et al. (2017)."----
+## ---- echo=FALSE, out.width='60%', fig.cap="Thrombolytic treatment network, from Phillippo et al. (2018)."----
 knitr::include_graphics("Thrombo_network.png")
 
 ## ------------------------------------------------------------------------
@@ -175,7 +175,7 @@ thresh_forest(thresh, contr.mean, CI2.5, CI97.5, label = lab, data = plotdat,
 # Reset environment
 rm(list=ls())
 
-## ---- echo=FALSE, out.width='60%', fig.cap="Social anxiety treatment network, from Phillippo et al. (2017)."----
+## ---- echo=FALSE, out.width='60%', fig.cap="Social anxiety treatment network, from Phillippo et al. (2018)."----
 knitr::include_graphics("Social_Anxiety_network.png")
 
 ## ---- eval=FALSE---------------------------------------------------------

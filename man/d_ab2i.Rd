@@ -3,7 +3,6 @@
 \name{d_ab2i}
 \alias{d_ab2i}
 \alias{d_i2ab}
-\alias{d_i2ab}
 \title{Convert contrast indexing}
 \usage{
 d_ab2i(a, b, K)

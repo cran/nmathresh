@@ -21,7 +21,11 @@ the same size as post, with elements \code{1/prior.prec}.}
 \item{verbose}{Print intermediate matrices? Defaults to \code{FALSE}.}
 }
 \value{
-A matrix; the reconstructed likelihood covariance matrix.
+A matrix; the reconstructed likelihood covariance matrix. If NNLS is
+  used, the residual sum-of-squares and Kullback-Leibler divergence
+  diagnostics (as printed to the console) are returned as additional
+  attributes \code{rss.total}, \code{rss.fixed}, \code{rss.free},
+  \code{kl.divergence}.
 }
 \description{
 Reconstruct the contrast-level likelihood covariance matrix from prior and
@@ -31,12 +35,12 @@ then be used to perform a contrast-level threshold analysis with the function
 }
 \details{
 Full details of the calculation are given by Phillippo \emph{et al.}
-  (2017). Briefly, the aim is to recover the contrast-level
-  likelihood covariance matrix \eqn{V} that would have led to the posterior
-  covariance matrix \eqn{\Sigma} being obtained from a fixed effects NMA,
-  with design matrix \eqn{X} and prior covariance matrix \eqn{\Sigma_d} for a
-  normal prior on the basic treatment parameters. This is possible in this
-  case via the equation (resulting from conjugacy):
+  (2018). Briefly, the aim is to recover the contrast-level likelihood
+  covariance matrix \eqn{V} that would have led to the posterior covariance
+  matrix \eqn{\Sigma} being obtained from a fixed effects NMA, with design
+  matrix \eqn{X} and prior covariance matrix \eqn{\Sigma_d} for a normal
+  prior on the basic treatment parameters. This is possible in this case via
+  the equation (resulting from conjugacy):
 
   \deqn{\Sigma^{-1} = X^TV^{-1}X + \Sigma_d^{-1}.}
 
@@ -46,6 +50,17 @@ Full details of the calculation are given by Phillippo \emph{et al.}
   When the treatment network is incomplete (i.e. not all treatments are
   directly compared), this equation may be solved through the use of
   non-negative least squares (NNLS).
+
+  When NNLS is used, some additional diagnostics are printed (and returned as
+  attributes). Firstly, the residual sum-of-squares (RSS) from the NNLS fit.
+  The RSS is further split into \emph{fixed} RSS, from structural zeros in
+  the reconstructed posterior according to the design matrix (and hence not
+  fitted) that are non-zero in the true posterior, and \emph{fitted} RSS,
+  from the other fitted elements. Secondly, the Kullback-Leibler divergence
+  of the reconstructed posterior from the true posterior. Interpreting the KL
+  divergence as a log Bayes factor, values less than 1 indicate negligible
+  differences between the reconstructed posterior from the true posterior,
+  whilst values greater than 3 indicate considerable differences.
 }
 \examples{
 # Please see the vignette "Examples" for worked examples including use of

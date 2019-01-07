@@ -2,7 +2,7 @@
 #'
 #' This function calculates decision-invariant bias-adjustment thresholds and
 #' intervals for Bayesian network meta-analysis, as described by Phillippo
-#' \emph{et al.} (2017). Thresholds are derived from the joint
+#' \emph{et al.} (2018). Thresholds are derived from the joint
 #' posterior, and reflect the amount of change to a data point before the
 #' treatment decision changes. Calculation is achieved using fast matrix
 #' operations.
@@ -39,7 +39,7 @@
 #'
 #' @details This function provides bias-adjustment threshold analysis for both
 #'   fixed and random effects NMA models, as described by Phillippo \emph{et
-#'   al.} (2017). Parameters \code{mean.dk}, \code{lhood}, and
+#'   al.} (2018). Parameters \code{mean.dk}, \code{lhood}, and
 #'   \code{post} are always required, however there are differences in the
 #'   specification of \code{post} and other required parameters and between the
 #'   fixed and random effects cases:

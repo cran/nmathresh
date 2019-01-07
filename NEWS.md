@@ -1,3 +1,8 @@
+# nmathresh 0.1.4
+
+* Feature: Diagnostics from `recon_vcov` when using NNLS are now returned as additional attributes to the matrix (as well as being printed).
+* Updated references to Phillippo et al. JRSS:A paper, which is now in print.
+
 # nmathresh 0.1.3
 
 * Fix: Previous release introduced a bug where a single column passed to `add.columns` resulted in an error.

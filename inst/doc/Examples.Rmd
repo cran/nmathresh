@@ -9,11 +9,11 @@ vignette: >
 ---
 
 # Introduction
-This vignette provides worked examples for the `nmathresh` package, recreating exactly the analyses in the paper by Phillippo et al. (2017).
+This vignette provides worked examples for the `nmathresh` package, recreating exactly the analyses in the paper by Phillippo et al. (2018).
 
 # Thrombolytics
 Caldwell et al. (2005) present a NMA of six thrombolytic treatments, with data taken from two systematic reviews (Boland et al. 2003, Keeley et al. 2003).
-```{r, echo=FALSE, out.width='60%', fig.cap="Thrombolytic treatment network, from Phillippo et al. (2017)."}
+```{r, echo=FALSE, out.width='60%', fig.cap="Thrombolytic treatment network, from Phillippo et al. (2018)."}
 knitr::include_graphics("Thrombo_network.png")
 ```
 
@@ -149,7 +149,7 @@ thresh_forest(thresh,
               calcdim = FALSE)
 ```
 
-For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2017). For example, the estimated log odds ratio of treatment 5 vs. treatment 1 in study 11 is -0.06. 
+For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2018). For example, the estimated log odds ratio of treatment 5 vs. treatment 1 in study 11 is -0.06. 
 A negative bias adjustment of -0.14 would move the estimate to the lower bound of the decision-invariant bias adjustment interval (-0.20), at which point treatment 5 would replace treatment 3 as optimal. 
 Conversely, a positive bias adjustment of 0.87 would move the estimate to the upper bound of the decision-invariant bias adjustment interval, at which point treatment 2 would replace treatment 3 as optimal.
 The lower portion of the invariant interval is shaded red (and the row label is bold) as the lower threshold lies within the 95% confidence interval of the study 11 estimate; the decision is sensitive to the level of imprecision in this estimate.
@@ -236,7 +236,7 @@ The contrast-level threshold analysis gives very similar results to the study-le
 rm(list=ls())
 ```
 Forty-one treatments for social anxiety were compared in a network-meta analysis by Mayo-Wilson et al. (2014, also National Collaborating Centre for Mental Health 2013). A random effects model was used, and treatments were modelled within classes.
-```{r, echo=FALSE, out.width='60%', fig.cap="Social anxiety treatment network, from Phillippo et al. (2017)."}
+```{r, echo=FALSE, out.width='60%', fig.cap="Social anxiety treatment network, from Phillippo et al. (2018)."}
 knitr::include_graphics("Social_Anxiety_network.png")
 ```
 
@@ -453,7 +453,7 @@ thresh_forest(thresh, contr.mean, CI2.5, CI97.5,
               refline = 0, digits = 2, calcdim = FALSE)
 ```
 
-The treatment decision is robust to the level of imprecision in the combined data available on each contrast. A standardised mean difference of more than 0.8 may be considered large in the context of behavioural sciences (Cohen, 1988). All but five thresholds are larger than this, and for each of these the new optimal treatment at the threshold is 36. Rather than performing a long and laborious qualitative assessment of all 84 contrasts and 100 studies, attention can be focused on the smaller number of contrasts (for example the 5 studies with thresholds smaller than 0.8 SMD) where plausible adjustments to the data may cause a change in treatment recommendation. For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2017).
+The treatment decision is robust to the level of imprecision in the combined data available on each contrast. A standardised mean difference of more than 0.8 may be considered large in the context of behavioural sciences (Cohen, 1988). All but five thresholds are larger than this, and for each of these the new optimal treatment at the threshold is 36. Rather than performing a long and laborious qualitative assessment of all 84 contrasts and 100 studies, attention can be focused on the smaller number of contrasts (for example the 5 studies with thresholds smaller than 0.8 SMD) where plausible adjustments to the data may cause a change in treatment recommendation. For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2018).
 
 ## More complex analyses
 More complex analyses are possible by manipulating the set of $u_{ak^*,m}$ values, which are contained in the `thresh` object output by `nma_thresh` in the matrix `Ukstar`. For example, continuing with the contrast-level analysis of the social anxiety NMA, we could consider a common bias in all pharmacological treatments against inactive control, or all psychological treatments against inactive control.
@@ -566,7 +566,7 @@ plotII(thresh.psych,
        xlim=c(-3,2), ylab="Psych vs. Inactive Contrasts", xlab="SMD")
 ```
 
-For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2017). The magnitude of the thresholds for both common pharmacological and common psychological treatment biases are large (Cohen, 1988). Any such biases - if they exist - are likely to be much smaller than these thresholds.
+For a more detailed explanation and interpretation of these forest plots see Phillippo et al. (2018). The magnitude of the thresholds for both common pharmacological and common psychological treatment biases are large (Cohen, 1988). Any such biases - if they exist - are likely to be much smaller than these thresholds.
 
 We may also assess the impact of adjusting for common biases of this nature simultaneously. Again, this is done by manipulating the set of $u_{ak^*,m}$ values to derive threshold lines (the boundaries where treatment $a$ replaces treatment $k^*$ as optimal). With adjustment for common pharmacological treatment bias on the $x$-axis and adjustment for common psychological treatment bias on the $y$-axis, the $y$ intercept of each line is the sum of all $u_{ak^*,m}$ values over the psychological data points (i.e. the one-dimensional threshold solutions). Similarly, the $x$ intercept of each line is the sum of all $u_{ak^*,m}$ values over the pharmacological data points.
 
@@ -598,7 +598,7 @@ Mayo-Wilson E, Dias S, Mavranezouli I, Kew K, Clark DM, Ades AE, et al. Psycholo
 
 National Collaborating Centre for Mental Health. Social Anxiety Disorder: Recognition, Assessment and Treatment. Leicester and London: The British Psychological Society and the Royal College of Psychiatrists; 2013.
 
-Phillippo DM, Dias S, Ades AE, Didelez V and Welton NJ (2017). Sensitivity of treatment recommendations to bias in network meta-analysis. Journal of the Royal Statistical Society: Series A (Statistics in Society). DOI: [10.1111/rssa.12341](http://dx.doi.org/10.1111/rssa.12341)
+Phillippo DM, Dias S, Ades AE, Didelez V and Welton NJ. Sensitivity of treatment recommendations to bias in network meta-analysis. Journal of the Royal Statistical Society: Series A (Statistics in Society) 2018;181:843-867. DOI: [10.1111/rssa.12341](http://dx.doi.org/10.1111/rssa.12341)
 
 
 # Appendix: WinBUGS code and reading CODA output

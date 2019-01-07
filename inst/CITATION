@@ -10,13 +10,16 @@ citEntry(entry = "Article",
                    as.person("Nicky J Welton")
                    ),
   journal      = "Journal of the Royal Statistical Society: Series A (Statistics in Society)",
-  year         = "2017",
+  year         = "2018",
+  volume       = "181",
+  number       = "3",
+  pages        = "843--867",
   url          = "http://dx.doi.org/10.1111/rssa.12341",
   doi          = "10.1111/rssa.12341",
 
   textVersion  =
-  paste("Phillippo, D. M., Dias, S., Ades, A. E., Didelez, V. and Welton, N. J. (2017).",
+  paste("Phillippo, D. M., Dias, S., Ades, A. E., Didelez, V. and Welton, N. J. (2018),",
         "Sensitivity of treatment recommendations to bias in network meta-analysis.",
-        "Journal of the Royal Statistical Society: Series A (Statistics in Society).",
+        "Journal of the Royal Statistical Society: Series A (Statistics in Society), 181:843-867.",
         "doi:10.1111/rssa.12341")
 )
