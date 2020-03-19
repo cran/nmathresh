@@ -4,8 +4,16 @@
 \alias{get.int}
 \title{Get thresholds from U matrix}
 \usage{
-get.int(x, kstar, trt.code, contrs, mcid = FALSE, mean.dk = NULL,
-  inflmat = NULL, opt.max = NULL)
+get.int(
+  x,
+  kstar,
+  trt.code,
+  contrs,
+  mcid = FALSE,
+  mean.dk = NULL,
+  inflmat = NULL,
+  opt.max = NULL
+)
 }
 \arguments{
 \item{x}{Column of \eqn{U} matrix, containing all possible threshold

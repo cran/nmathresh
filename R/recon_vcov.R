@@ -77,15 +77,7 @@ recon_vcov <- function(post, prior.prec=.0001,
                        prior.vcov=diag(1 / prior.prec, dim(post)[1]),
                        X=NULL, verbose=FALSE) {
 
-
   # Prior and posterior precision matrices
-  tryCatch(prior.P <- solve(prior.vcov),
-           error = function(err) {
-             err$message <- paste0(
-               "Cannot invert prior.vcov, should be a (square, positive definite) covariance matrix.\n",
-               err$message)
-             stop(err)
-           })
   tryCatch(post.P <- solve(post),
            error = function(err) {
              err$message <- paste0(
@@ -93,6 +85,22 @@ recon_vcov <- function(post, prior.prec=.0001,
                err$message)
              stop(err)
            })
+
+  if (length(prior.prec) == 1 && prior.prec == 0) {
+
+    # Frequentist / improper flat prior case
+    prior.P <- 0
+
+  } else {
+
+    tryCatch(prior.P <- solve(prior.vcov),
+             error = function(err) {
+               err$message <- paste0(
+                 "Cannot invert prior.vcov, should be a (square, positive definite) covariance matrix.\n",
+                 err$message)
+               stop(err)
+             })
+  }
 
   # X^T V^-1 X is equal to the difference of these precision matrices
   D <- post.P - prior.P
@@ -213,9 +221,9 @@ recon_vcov <- function(post, prior.prec=.0001,
     # likelihood with infinite variances removed) from the "true" posterior
 
     # The posterior cov from the fitted likelihood cov
-    post.cov.fit <- solve(solve(prior.vcov) + t(X[!inftf,]) %*%
-                                              solve(lik.cov[!inftf,!inftf]) %*%
-                                              X[!inftf,])
+    post.cov.fit <- solve(prior.P + t(X[!inftf,]) %*%
+                                    solve(lik.cov[!inftf,!inftf]) %*%
+                                    X[!inftf,])
 
     # KL divergence of this from "true" post cov
     KL.div <- 1/2 * (sum(diag(solve(post.cov.fit) %*% post)) - dim(post)[1] +

@@ -4,8 +4,13 @@
 \alias{recon_vcov}
 \title{Reconstruct likelihood covariance matrix}
 \usage{
-recon_vcov(post, prior.prec = 1e-04, prior.vcov = diag(1/prior.prec,
-  dim(post)[1]), X = NULL, verbose = FALSE)
+recon_vcov(
+  post,
+  prior.prec = 1e-04,
+  prior.vcov = diag(1/prior.prec, dim(post)[1]),
+  X = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{post}{Posterior covariance matrix.}

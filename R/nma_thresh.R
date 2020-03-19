@@ -333,20 +333,20 @@ nma_thresh <- function(mean.dk, lhood, post,
   # optimal treatment k* in first place.
   # Updated to handle trt.sub, only look for k* in a subset of treatments.
 
-  mean.dk.subNA <- mean.dk
-  mean.dk.subNA[!(1:(K - 1) %in% (trt.sub.internal - 1))] <- NA
+  mean.dk.subNA <- c(0, mean.dk)
+  mean.dk.subNA[-trt.sub.internal] <- NA
 
   if (opt.max) {
     if (mcid > 0 & mcid.type == 'decision') {
-      kstar <- which(mean.dk.subNA >= mcid & max(mean.dk.subNA, na.rm = TRUE) - mean.dk.subNA <= mcid) + 1
+      kstar <- which(mean.dk.subNA >= mcid & max(mean.dk.subNA, na.rm = TRUE) - mean.dk.subNA <= mcid)
     } else {
-      kstar <- order(c(0, mean.dk.subNA), decreasing = TRUE)[trt.rank]
+      kstar <- order(mean.dk.subNA, decreasing = TRUE)[trt.rank]
     }
   } else if (!opt.max) {
     if (mcid > 0 & mcid.type == 'decision') {
-      kstar <- which(mean.dk.subNA <= -mcid & min(mean.dk.subNA, na.rm = TRUE) - mean.dk.subNA >= -mcid) + 1
+      kstar <- which(mean.dk.subNA <= -mcid & min(mean.dk.subNA, na.rm = TRUE) - mean.dk.subNA >= -mcid)
     } else {
-      kstar <- order(c(0, mean.dk.subNA), decreasing = FALSE)[trt.rank]
+      kstar <- order(mean.dk.subNA, decreasing = FALSE)[trt.rank]
     }
   }
 

@@ -4,10 +4,21 @@
 \alias{nma_thresh}
 \title{Calculate thresholds and invariant intervals}
 \usage{
-nma_thresh(mean.dk, lhood, post, nmatype = "fixed", X = NULL,
-  mu.design = NULL, delta.design = NULL, opt.max = TRUE,
-  trt.rank = 1, trt.code = NULL, trt.sub = NULL, mcid = 0,
-  mcid.type = "decision")
+nma_thresh(
+  mean.dk,
+  lhood,
+  post,
+  nmatype = "fixed",
+  X = NULL,
+  mu.design = NULL,
+  delta.design = NULL,
+  opt.max = TRUE,
+  trt.rank = 1,
+  trt.code = NULL,
+  trt.sub = NULL,
+  mcid = 0,
+  mcid.type = "decision"
+)
 }
 \arguments{
 \item{mean.dk}{Posterior means of basic treatment parameters \eqn{d_k}.}

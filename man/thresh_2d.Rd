@@ -4,11 +4,21 @@
 \alias{thresh_2d}
 \title{Producing two-dimensional invariant regions}
 \usage{
-thresh_2d(thresh, idx, idy, xlab = paste("Adjustment to data point",
-  idx), ylab = paste("Adjustment to data point", idy), xlim = NULL,
-  ylim = NULL, breaks = waiver(), xbreaks = breaks,
-  ybreaks = breaks, fill = rgb(0.72, 0.8, 0.93, 0.7), lwd = 1,
-  fontsize = 12)
+thresh_2d(
+  thresh,
+  idx,
+  idy,
+  xlab = paste("Adjustment to data point", idx),
+  ylab = paste("Adjustment to data point", idy),
+  xlim = NULL,
+  ylim = NULL,
+  breaks = waiver(),
+  xbreaks = breaks,
+  ybreaks = breaks,
+  fill = rgb(0.72, 0.8, 0.93, 0.7),
+  lwd = 1,
+  fontsize = 12
+)
 }
 \arguments{
 \item{thresh}{A \code{thresh} object, as produced by

@@ -1,3 +1,8 @@
+# nmathresh 0.1.5
+
+* Fix: `recon_vcov` now allows `prior.prec = 0`, reconstructing the covariance matrix from a frequentist analysis of the contrast data (or a Bayesian analysis with improper flat priors).
+* Fix: Bug when excluding treatment 1 from the decision set where incorrect base-case optimal treatment could be chosen.
+
 # nmathresh 0.1.4
 
 * Feature: Diagnostics from `recon_vcov` when using NNLS are now returned as additional attributes to the matrix (as well as being printed).
