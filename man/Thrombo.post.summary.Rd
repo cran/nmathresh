@@ -4,12 +4,14 @@
 \name{Thrombo.post.summary}
 \alias{Thrombo.post.summary}
 \title{Posterior summary from Thrombolytics NMA}
-\format{A \code{summary.mcmc} object. The key components for our use are:
+\format{
+A \code{summary.mcmc} object. The key components for our use are:
   \describe{ \item{statistics}{Matrix containing the posterior summary
   statistics, with columns for \code{Mean}, \code{SD}, \code{Naive SE}, and
   \code{Time-series SE} (also known as the Monte-Carlo standard error)}
   \item{quantiles}{Matrix containing the posterior 2.5\%, 25\%, 50\%, 75\%,
-  and 97.5\% quantiles}}}
+  and 97.5\% quantiles}}
+}
 \source{
 Generated from WinBUGS output, using the WinBUGS code from Caldwell
   et al. (2005). See also \code{vignette("Examples", package = "nmathresh")}.

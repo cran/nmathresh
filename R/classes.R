@@ -39,8 +39,6 @@
 #'
 #' @seealso \code{\link{nma_thresh}}
 #'
-#' @exportClass thresh
-#'
 NULL
 
 #' @export

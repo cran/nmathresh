@@ -4,7 +4,9 @@
 \name{SocAnx.post.cov}
 \alias{SocAnx.post.cov}
 \title{Posterior covariance matrix from Social Anxiety NMA}
-\format{An object of class \code{matrix} with 186 rows and 186 columns.}
+\format{
+An object of class \code{matrix} (inherits from \code{array}) with 186 rows and 186 columns.
+}
 \source{
 Generated from WinBUGS output, using the WinBUGS code from
   Mayo-Wilson et al. (2014). See also \code{vignette("Examples", package =

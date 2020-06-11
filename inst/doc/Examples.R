@@ -1,13 +1,13 @@
 ## ---- echo=FALSE, out.width='60%', fig.cap="Thrombolytic treatment network, from Phillippo et al. (2018)."----
 knitr::include_graphics("Thrombo_network.png")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(nmathresh)
 
 # library(coda)   # Not required - but prints the summary in a nicer format
 # Thrombo.post.summary
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 dat.raww <- read.delim(system.file("extdata", "Thrombo_data.txt", package = "nmathresh"))
 
 # print first few rows
@@ -15,7 +15,7 @@ head(dat.raww)
 
 n <- nrow(dat.raww)   # number of studies
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Log OR for two-arm trials, arm 2 vs. 1
 dat.raww$lor.1 <- with(dat.raww, log(r.2 * (n.1 - r.1) / ((n.2 - r.2) * r.1)) )
 
@@ -29,7 +29,7 @@ dat.raww$lor.2 <- with(dat.raww, log(r.3 * (n.1 - r.1) / ((n.3 - r.3) * r.1)) )
 dat.raww$k.2 <- dat.raww$t.3   # Arm 3 treatment (NA if only 2 arms)
 dat.raww$b.2 <- ifelse(is.na(dat.raww$k.2), NA, dat.raww$t.1)   # Reference treatment
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # LOR variances and covariances, likelihood covariance matrix V
 V.diag <- as.list(rep(NA, n))
 attach(dat.raww)
@@ -50,7 +50,7 @@ detach(dat.raww)
 library(Matrix)
 V <- bdiag(V.diag)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Reshape the data to have one row per contrast per study
 dat.rawl <- reshape(dat.raww, varying = c("lor.1", "b.1", "k.1", "lor.2", "b.2", "k.2"), 
                     timevar = "c", idvar = "studyID", direction = "long")
@@ -61,7 +61,7 @@ dat.rawl <- dat.rawl[order(dat.rawl$studyID, dat.rawl$c, dat.rawl$b, na.last = N
 N <- nrow(dat.rawl)   # number of data points
 K <- length(unique(c(dat.rawl$b, dat.rawl$k)))   # Number of treatments
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Construct the design matrix, with a row for each contrast and K-1 columns (parameters)
 X <- matrix(0, nrow = N, ncol = K-1)
 
@@ -72,7 +72,7 @@ for (i in 1:N){
   }
 }
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Now we can perform thresholding at the study level
 thresh <- nma_thresh(mean.dk = Thrombo.post.summary$statistics[1:(K-1), "Mean"], 
                      lhood = V, 
@@ -81,10 +81,10 @@ thresh <- nma_thresh(mean.dk = Thrombo.post.summary$statistics[1:(K-1), "Mean"],
                      X = X,
                      opt.max = FALSE)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 thresh
 
-## ---- fig.width=13, fig.height=5.5, out.width='100%', dpi=300------------
+## ---- fig.width=13, fig.height=5.5, out.width='100%', dpi=300-----------------
 # Display using a forest plot, along with 95% confidence intervals for LORs
 # Create row labels
 dat.rawl$lab <- rep(NA, nrow(dat.rawl))
@@ -113,18 +113,18 @@ thresh_forest(thresh,
               xlim = c(-3, 2), refline = 0, digits = 2,
               calcdim = FALSE)
 
-## ---- fig.width=6, fig.height=6, out.width='60%', dpi=300----------------
+## ---- fig.width=6, fig.height=6, out.width='60%', dpi=300---------------------
 thresh_2d(thresh, 1, 2,
           xlab = "Adjustment in Study 1 LOR: 3 vs. 1",
           ylab = "Adjustment in Study 1 LOR: 4 vs. 1",
           xlim = c(-1.5, 0.5), ylim = c(-2, 14),
           ybreaks = seq(-2, 14, 2))
 
-## ---- include=FALSE------------------------------------------------------
+## ---- include=FALSE-----------------------------------------------------------
 # Reset environment
 rm(list = ls())
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 K <- 6   # Number of treatments
 
 # Contrast design matrix is
@@ -140,7 +140,7 @@ X <- matrix(ncol = K-1, byrow = TRUE,
 # Reconstruct using NNLS
 lik.cov <- recon_vcov(Thrombo.post.cov, prior.prec = .0001, X = X)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 thresh <- nma_thresh(mean.dk = Thrombo.post.summary$statistics[1:(K-1), "Mean"], 
                      lhood = lik.cov, 
                      post = Thrombo.post.cov, 
@@ -148,7 +148,7 @@ thresh <- nma_thresh(mean.dk = Thrombo.post.summary$statistics[1:(K-1), "Mean"],
                      X = X, 
                      opt.max = FALSE)
 
-## ---- fig.width = 12, fig.height = 3.5, out.width = '100%', dpi = 300----
+## ---- fig.width = 12, fig.height = 3.5, out.width = '100%', dpi = 300---------
 # Get treatment codes for the contrasts with data
 d.a <- d.b <- vector(length = nrow(X))
 for (i in 1:nrow(X)){
@@ -171,21 +171,21 @@ thresh_forest(thresh, contr.mean, CI2.5, CI97.5, label = lab, data = plotdat,
               label.title = "Contrast", xlab = "Log Odds Ratio", CI.title = "95% Credible Interval",
               xlim = c(-.3, .3), refline = 0, digits = 2, calcdim = FALSE)
 
-## ---- include=FALSE------------------------------------------------------
+## ---- include=FALSE-----------------------------------------------------------
 # Reset environment
 rm(list=ls())
 
 ## ---- echo=FALSE, out.width='60%', fig.cap="Social anxiety treatment network, from Phillippo et al. (2018)."----
 knitr::include_graphics("Social_Anxiety_network.png")
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  library(nmathresh)
 #  library(Matrix)
 #  
 #  # library(coda)   # Not required - but prints the summary in a nicer format
 #  # SocAnx.post.summary
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Read study data
 dat.raww <- read.delim(system.file("extdata", "SocAnx_data.txt", package = "nmathresh"))
 
@@ -205,7 +205,7 @@ dat.rawl <- dat.rawl[order(dat.rawl$studyID, dat.rawl$arm, dat.rawl$y, na.last=N
 K <- length(unique(c(dat.rawl$t.1, dat.rawl$t)))    # Number of treatments
 N <- nrow(dat.rawl)    # Number of data points
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Get indices of d, sd, diff in the CODA data
 vnames <- sub("(.*)\\[.*","\\1", rownames(SocAnx.post.summary$statistics))
 ind.d <- which(vnames=="d")
@@ -213,7 +213,7 @@ ind.sd <- which(vnames=="sd")
 ind.diff <- which(vnames=="diff")
 ind.delta <- which(vnames=="delta")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Create likelihood covariance matrix
 V.diag <- as.list(rep(NA,n))
 attach(dat.raww)
@@ -231,14 +231,14 @@ detach(dat.raww)
 
 lik.cov <- bdiag(V.diag)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 thresh <- nma_thresh(mean.dk = SocAnx.post.summary$statistics[ind.d, "Mean"], 
                      lhood = lik.cov, 
                      post = SocAnx.post.cov,
                      nmatype = "random", 
                      opt.max = FALSE)
 
-## ---- fig.width=14, fig.height=9.5, out.width='100%', dpi=300------------
+## ---- fig.width=14, fig.height=9.5, out.width='100%', dpi=300-----------------
 # 95% CIs
 dat.rawl$CI2.5 <- with(dat.rawl, y + qnorm(0.025)*sqrt(Var))
 dat.rawl$CI97.5 <- with(dat.rawl, y + qnorm(0.975)*sqrt(Var))
@@ -265,11 +265,11 @@ thresh_forest(thresh, y, CI2.5, CI97.5, label = lab,
               label.title = "Study (Contrast)", xlab = "Standardised Mean Difference", 
               xlim = c(-4, 3), y.title = "SMD", refline = 0, digits = 2, calcdim = FALSE)
 
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 # Reset environment
 rm(list=ls())
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 trt.dat <- read.delim(system.file("extdata", "SocAnx_data.txt", package = "nmathresh"))[, 1:6]
 
 head(trt.dat)   # Print first few rows
@@ -306,7 +306,7 @@ for (i in 1:nrow(X)) {
   if (contr.ab[i, "b"] > 1)   X[i, contr.ab[i, "b"] - 1]    <- 1
 }
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Get indices of d, sd, diff in the CODA data
 vnames <- sub("(.*)\\[.*","\\1", rownames(SocAnx.post.summary$statistics))
 ind.d <- which(vnames=="d")
@@ -314,7 +314,7 @@ ind.sd <- which(vnames=="sd")
 ind.diff <- which(vnames=="diff")
 ind.delta <- which(vnames=="delta")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Class model is used, so use the prior mean precision from the gamma distribution
 prior.prec <- rep(3.9/0.35, 40)
 # Other than for treatment 3
@@ -322,7 +322,7 @@ prior.prec[2] <- 0.0001
 
 lik.cov <- recon_vcov(SocAnx.post.cov[1:(K-1), 1:(K-1)], prior.vcov = diag(1/prior.prec), X = X)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 thresh <- nma_thresh(mean.dk = SocAnx.post.summary$statistics[ind.d, "Mean"], 
                      lhood = lik.cov,
                      post = SocAnx.post.cov[1:(K-1), 1:(K-1)],
@@ -330,7 +330,7 @@ thresh <- nma_thresh(mean.dk = SocAnx.post.summary$statistics[ind.d, "Mean"],
                      X = X, 
                      opt.max = FALSE)
 
-## ---- fig.width=13, fig.height=11, out.width='100%', dpi=300-------------
+## ---- fig.width=13, fig.height=11, out.width='100%', dpi=300------------------
 # Get indices of contrasts in likelihood
 d.a <- d.b <- vector(length = nrow(X))
 for (i in 1:nrow(X)) {
@@ -359,7 +359,7 @@ thresh_forest(thresh, contr.mean, CI2.5, CI97.5,
               CI.title = "95% Credible Interval",
               refline = 0, digits = 2, calcdim = FALSE)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Drug treatments (+ combi therapies)
 drugtrts <- c(9:23, 37:41)
 
@@ -373,11 +373,11 @@ U.drugs <- 1 / (rowSums(1 / thresh$Ukstar[,drugdats]))
 Ukstar.ab <- d_i2ab(1:(K*(K-1)/2), K)
 Ukstar.ab <- Ukstar.ab[Ukstar.ab$a == thresh$kstar | Ukstar.ab$b == thresh$kstar, ]
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # Thresholds are then
 thresh.drugs <- get.int(U.drugs, thresh$kstar, 1:K, Ukstar.ab)
 
-## ---- fig.height=6, fig.width=8, out.width='80%', dpi=300----------------
+## ---- fig.height=6, fig.width=8, out.width='80%', dpi=300---------------------
 ## Function to plot the common invariant interval with the data
 plotII <- function(thresh, contr.mean, CrI.lo, CrI.hi, rowlabs, xlim, xlab, ylab, ...){
   
@@ -439,7 +439,7 @@ plotII(thresh.drugs,
        rowlabs = paste0(contr.ab[drugdats, "b"], " vs. ", contr.ab[drugdats, "a"]),
        xlim = c(-4, 1.5), ylab = "Drug vs. Inactive Contrasts", xlab = "SMD")
 
-## ---- fig.width=8, fig.height=5.5, out.width='80%', dpi=300--------------
+## ---- fig.width=8, fig.height=5.5, out.width='80%', dpi=300-------------------
 # Psych treatments
 psychtrts <- c(4:8, 24:36)
 
@@ -459,7 +459,7 @@ plotII(thresh.psych,
        rowlabs=paste0(contr.ab[psychdats,"b"]," vs. ",contr.ab[psychdats,"a"]),
        xlim=c(-3,2), ylab="Psych vs. Inactive Contrasts", xlab="SMD")
 
-## ---- fig.width=8, fig.height=8, out.width='80%', dpi=300----------------
+## ---- fig.width=8, fig.height=8, out.width='80%', dpi=300---------------------
 thresh.drugpsych <- list(
   Ukstar = cbind(U.drugs, U.psych),
   kstar = thresh$kstar
@@ -471,7 +471,7 @@ thresh_2d(thresh.drugpsych, 1, 2,
           xlim = c(-6, 2), ylim = c(-6, 2),
           breaks = -6:2)
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  # Use coda package to read in the CODA files generated by WinBUGS
 #  # The CODA files need only contain the dd parameter (contrasts).
 #  library(coda)
@@ -487,7 +487,7 @@ thresh_2d(thresh.drugpsych, 1, 2,
 #  # Posterior covariance matrix of basic treatment effects d_k = d_1k
 #  Thrombo.post.cov <- cov(as.matrix(dat.CODA[,1:5]))
 
-## ---- eval=FALSE---------------------------------------------------------
+## ---- eval=FALSE--------------------------------------------------------------
 #  # Use coda package to read in the CODA files generated by WinBUGS
 #  # The CODA files need only contain the d, delta, and sd parameters.
 #  library(coda)

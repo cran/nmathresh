@@ -1,3 +1,7 @@
+# nmathresh 0.1.6
+
+* Fix: NAMESPACE warning on CRAN.
+
 # nmathresh 0.1.5
 
 * Fix: `recon_vcov` now allows `prior.prec = 0`, reconstructing the covariance matrix from a frequentist analysis of the contrast data (or a Bayesian analysis with improper flat priors).

@@ -4,7 +4,9 @@
 \name{Thrombo.post.cov}
 \alias{Thrombo.post.cov}
 \title{Posterior covariance matrix from Thrombolytics NMA}
-\format{An object of class \code{matrix} with 5 rows and 5 columns.}
+\format{
+An object of class \code{matrix} (inherits from \code{array}) with 5 rows and 5 columns.
+}
 \source{
 Generated from WinBUGS output, using the WinBUGS code from Caldwell
   et al. (2005). See also \code{vignette("Examples", package = "nmathresh")}.

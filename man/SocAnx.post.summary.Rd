@@ -4,13 +4,15 @@
 \name{SocAnx.post.summary}
 \alias{SocAnx.post.summary}
 \title{Posterior summary from Social Anxiety NMA}
-\format{A \code{summary.mcmc} object. The key components for our use are:
+\format{
+A \code{summary.mcmc} object. The key components for our use are:
   \describe{ \item{statistics}{Matrix containing the posterior summary
   statistics of the variables \code{d}, \code{delta}, and \code{diff}, with
   columns for \code{Mean}, \code{SD}, \code{Naive SE}, and \code{Time-series
   SE} (also known as the Monte-Carlo standard error)} \item{quantiles}{Matrix
   containing the posterior 2.5\%, 25\%, 50\%, 75\%, and 97.5\% quantiles of
-  the variables \code{d}, \code{delta}, and \code{diff}}}}
+  the variables \code{d}, \code{delta}, and \code{diff}}}
+}
 \source{
 Generated from WinBUGS output, using the WinBUGS code from
   Mayo-Wilson et al. (2014). See also \code{vignette("Examples", package =
